@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>EmpresaTeis</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <selectedon>../img/logo.jpg</selectedon>
+   </iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -472,7 +477,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../img/calendario.png</normaloff>../img/calendario.png</iconset>
+            <normaloff>Y:/0_comun/calendario.png</normaloff>Y:/0_comun/calendario.png</iconset>
           </property>
          </widget>
         </item>
@@ -538,6 +543,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
@@ -560,22 +566,27 @@
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>panMain_2</tabstop>
   <tabstop>txtDnicli_2</tabstop>
-  <tabstop>txtApelcli_2</tabstop>
-  <tabstop>txtEmailcli_2</tabstop>
-  <tabstop>txtDircli_2</tabstop>
-  <tabstop>rbtFacemail_2</tabstop>
-  <tabstop>rbtFacpapel_2</tabstop>
   <tabstop>txtAltacli_2</tabstop>
   <tabstop>btnFechaltacli_2</tabstop>
+  <tabstop>txtApelcli_2</tabstop>
   <tabstop>lblNomecli_5</tabstop>
+  <tabstop>txtEmailcli_2</tabstop>
   <tabstop>lblNomecli_6</tabstop>
+  <tabstop>txtDircli_2</tabstop>
   <tabstop>cmbProvcli_2</tabstop>
   <tabstop>cmbMunicli_2</tabstop>
   <tabstop>chkHistoricocli_2</tabstop>
+  <tabstop>rbtFacemail_2</tabstop>
+  <tabstop>rbtFacpapel_2</tabstop>
   <tabstop>btnSavecli_2</tabstop>
   <tabstop>btnModifcli_2</tabstop>
   <tabstop>btnDelcli_2</tabstop>

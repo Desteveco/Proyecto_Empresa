@@ -1,3 +1,6 @@
+
+import re
+from conexion import *
 import globals
 
 class Customers:
@@ -6,6 +9,7 @@ class Customers:
         try:
             dni = globals.ui.txtDnicli_2.text()
             dni = str(dni).upper()
+            globals.ui.txtDnicli_2.setText(dni)
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
             reemp_dig_ext = {'X': '0', 'Y': '1', 'Z': '2'}
@@ -27,3 +31,44 @@ class Customers:
                 globals.ui.txtDnicli_2.setFocus()
         except Exception as error:
             print("error en validar dni ", error)
+
+    def capitalizar(texto,widget):
+        try:
+            texto = texto.title()
+            widget.setText(texto)
+        except Exception as error:
+            print("error en poner mayusculas ", error)
+
+
+    @staticmethod
+    def checkMail(self=None):
+        email = globals.ui.txtEmailcli_2.text()
+        pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        if re.match(pattern, email):
+            globals.ui.txtEmailcli_2.setStyleSheet('background-color: rgb(255, 255, 220); color: black')
+        else:
+            globals.ui.txtEmailcli_2.setStyleSheet('background-color:#FFC0CB; color: black')
+            globals.ui.txtEmailcli_2.setText(None)
+            globals.ui.txtEmailcli_2.setPlaceholderText("Invalid email")
+            globals.ui.txtEmailcli_2.setFocus()
+
+
+    @staticmethod
+    def checkMobile(self=None):
+        number = globals.ui.lblNomecli_6.text()
+        pattern = r'^[67]\d{8}$'
+        if re.match(pattern, number):
+            globals.ui.lblNomecli_6.setStyleSheet('background-color: rgb(255, 255, 220); color: black')
+        else:
+            globals.ui.lblNomecli_6.setStyleSheet('background-color:#FFC0CB; color: black')
+            globals.ui.lblNomecli_6.setText(None)
+            globals.ui.lblNomecli_6.setPlaceholderText("Invalid phone")
+            globals.ui.lblNomecli_6.setFocus()
+
+    @staticmethod
+    def loadTablecli(self=None):
+        try:
+            listTabCustomers = Conexion.listCustomers()
+            print(listTabCustomers)
+        except Exception as error:
+            print("error en loadTablecli ", error)

@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <selectedon>../img/logo.jpg</selectedon>
+    <selectedon>../../../../.designer/img/logo.jpg</selectedon>
    </iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -455,6 +455,9 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

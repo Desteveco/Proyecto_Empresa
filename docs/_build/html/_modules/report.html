@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>report &#8212; documentación de EstevezCounagoDAM - 0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="../_static/groundwork.css?v=594d7a89" />
+    <script src="../_static/documentation_options.js?v=6fcc102b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de EstevezCounagoDAM - 0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">report</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para report</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">reportlab.pdfgen</span><span class="w"> </span><span class="kn">import</span> <span class="n">canvas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">conexion</span><span class="w"> </span><span class="kn">import</span> <span class="n">Conexion</span>
+
+
+<div class="viewcode-block" id="Report">
+<a class="viewcode-back" href="../src/report.html#report.Report">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Report</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rootPath</span><span class="o">=</span> <span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">reports&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2">_%H_%M_%S&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">namereportcli</span> <span class="o">=</span> <span class="n">data</span> <span class="o">+</span> <span class="s2">&quot;_reportcustomers.pdf&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rootPath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">namereportcli</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdf_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rootPath</span> <span class="o">=</span> <span class="n">rootPath</span>
+
+<div class="viewcode-block" id="Report.footer">
+<a class="viewcode-back" href="../src/report.html#report.Report.footer">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">footer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="n">day</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y %H:%M:%S&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;Page: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">getPageNumber</span><span class="p">())))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Report.topreport">
+<a class="viewcode-back" href="../src/report.html#report.Report.topreport">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">topreport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path_logo</span> <span class="o">=</span> <span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">img</span><span class="se">\\</span><span class="s2">logo.jpg&quot;</span>
+            <span class="n">logo</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path_logo</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">logo</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">785</span><span class="p">,</span> <span class="s2">&quot;EMPRESA TEIS&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawCentredString</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">675</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">665</span><span class="p">,</span> <span class="mi">525</span><span class="p">,</span> <span class="mi">665</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span><span class="n">path_logo</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">745</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+                <span class="c1"># data company</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">760</span><span class="p">,</span> <span class="s2">&quot;CIF: A65327894&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">745</span><span class="p">,</span> <span class="s2">&quot;Avda de Galicia 101&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">730</span><span class="p">,</span> <span class="s2">&quot;Vigo - 36215 - España&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">715</span><span class="p">,</span> <span class="s2">&quot;Tlfo: 986 123 456&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="s2">&quot;email:teis@mail.com&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">695</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">695</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">695</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">695</span><span class="p">)</span>
+
+
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cannot load image&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Report.reportCustomers">
+<a class="viewcode-back" href="../src/report.html#report.Report.reportCustomers">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reportCustomers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;List Client&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">footer</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">topreport</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="n">Conexion</span><span class="o">.</span><span class="n">listCustomers</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DNI_NIE&quot;</span><span class="p">,</span> <span class="s2">&quot;SURNAME&quot;</span><span class="p">,</span> <span class="s2">&quot;NAME&quot;</span><span class="p">,</span> <span class="s2">&quot;MOBILE&quot;</span><span class="p">,</span> <span class="s2">&quot;CITY&quot;</span><span class="p">,</span> <span class="s2">&quot;INVOICE TYPE&quot;</span><span class="p">,</span> <span class="s2">&quot;STATE&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Bold&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">270</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">480</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">645</span><span class="p">,</span> <span class="mi">555</span><span class="p">,</span> <span class="mi">645</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">55</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="mi">630</span>
+            <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Oblique&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;Next Page&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">showPage</span><span class="p">()</span> <span class="c1">#Crea una nueva página</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DNI_NIE&quot;</span><span class="p">,</span> <span class="s2">&quot;SURNAME&quot;</span><span class="p">,</span> <span class="s2">&quot;NAME&quot;</span><span class="p">,</span> <span class="s2">&quot;MOBILE&quot;</span><span class="p">,</span> <span class="s2">&quot;CITY&quot;</span><span class="p">,</span> <span class="s2">&quot;INVOICE TYPE&quot;</span><span class="p">,</span> <span class="s2">&quot;STATE&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica-Bold&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">270</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="mi">480</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">645</span><span class="p">,</span> <span class="mi">545</span><span class="p">,</span> <span class="mi">645</span><span class="p">)</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="mi">55</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="mi">630</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+                <span class="n">dni</span> <span class="o">=</span> <span class="s2">&quot;*****&quot;</span> <span class="o">+</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dni</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">65</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">165</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">215</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">265</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">345</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">425</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;Alta&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">drawString</span><span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">425</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;Baja&quot;</span><span class="p">)</span>
+                <span class="n">y</span> <span class="o">-=</span> <span class="mi">25</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rootPath</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">namereportcli</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">startfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdf_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+</div>
+
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de EstevezCounagoDAM - 0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">report</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Desteveco.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    </div>
+  </body>
+</html>

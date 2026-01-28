@@ -1,0 +1,13 @@
+DNI_NIE,AddData,Surname,Name,eMail,Mobile,Address,Province,City,InvoiceType,Active
+99999999R,14/11/2025,Estévez,David,david@mail.com,651999999,,Barcelona,"Ametlla del Vallès, L'",electronic,True
+88211222N,09/02/2021,Jiménez Romero,Diego,diego.jiménez@example.com,640901739,Calle Sol 24,Málaga,Málaga,electronic,True
+X2100397Z,02/06/2023,López Hernández,Pablo,pablo.lópez@example.com,671779054,Calle Luna 63,Murcia,Murcia,electronic,True
+72393041N,03/12/2024,Martínez Ruiz,Alberto,alberto.martínez@example.com,630847847,Calle Real 92,Granada,Granada,paper,True
+96555105R,17/02/2021,Ramos Fuentes,Patricia,patricia.ramos@example.com,687246158,Calle Nueva 51,Murcia,Águilas,electronic,True
+64694905E,11/09/2022,Rodríguez Castro,Isabel,isabel.rodríguez@example.com,635229132,Calle Real 7,Valencia,Valencia,paper,True
+Y2106634D,18/09/2022,Ruiz Torres,Sergio,sergio.ruiz@example.com,613432574,Calle Sol 8,Valencia,Valencia,paper,True
+Y7729290Q,07/04/2024,Ruiz Torres,Carlos,carlos.ruiz@example.com,634734336,Calle Luna 45,Valencia,Valencia,electronic,True
+60842788Z,23/05/2023,Torres Vidal,Laura,laura.torres@example.com,665744535,Calle Prado 28,Sevilla,Sevilla,electronic,True
+15246872B,21/12/2021,Vega Molina,Raúl,raúl.vega@example.com,645262865,Calle Nueva 65,Barcelona,Badalona,electronic,True
+Z7111425Z,14/11/2022,Vega Molina,Isabel,isabel.vega@example.com,611648114,Calle Sol 26,Zaragoza,Zaragoza,electronic,True
+96566533K,26/09/2022,Vega Molina,Laura,laura.vega@example.com,685295404,Calle Alcalá 12,Vizcaya,Bilbao,paper,True

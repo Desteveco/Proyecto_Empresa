@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main &#8212; documentación de EstevezCounagoDAM - 0.0.1</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="../_static/groundwork.css?v=594d7a89" />
+    <script src="../_static/documentation_options.js?v=6fcc102b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de EstevezCounagoDAM - 0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">main</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para main</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">asyncio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">global_str</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">customers</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">events</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">globals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">conexion</span><span class="w"> </span><span class="kn">import</span> <span class="n">Conexion</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">customers</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dlgAbout</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">invoice</span><span class="w"> </span><span class="kn">import</span> <span class="n">Invoice</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">products</span><span class="w"> </span><span class="kn">import</span> <span class="n">Products</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">report</span><span class="w"> </span><span class="kn">import</span> <span class="n">Report</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">venAux</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">window</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dlgCalendar</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">events</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">styles</span>
+
+<div class="viewcode-block" id="Main">
+<a class="viewcode-back" href="../src/main.html#main.Main">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Main</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Main</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_MainWindow</span><span class="p">()</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1">#Instances</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">vencal</span> <span class="o">=</span> <span class="n">Calendar</span><span class="p">()</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">about</span> <span class="o">=</span> <span class="n">About</span><span class="p">()</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">dlgopen</span> <span class="o">=</span> <span class="n">FileDialogOpen</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">Report</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invoice</span> <span class="o">=</span> <span class="n">Invoice</span><span class="p">()</span>
+
+        <span class="c1">#Estilos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">styles</span><span class="o">.</span><span class="n">load_stylesheet</span><span class="p">())</span>
+
+        <span class="c1"># Conexión base de datos</span>
+
+        <span class="n">varcli</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">Conexion</span><span class="o">.</span><span class="n">db_conexion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">Customers</span><span class="o">.</span><span class="n">loadTablecli</span><span class="p">(</span><span class="n">varcli</span><span class="p">)</span>
+        <span class="n">Products</span><span class="o">.</span><span class="n">loadTableProduct</span><span class="p">()</span>
+        <span class="n">Invoice</span><span class="o">.</span><span class="n">loadTablefact</span><span class="p">()</span>
+
+        <span class="n">Events</span><span class="o">.</span><span class="n">resizeTabProducts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">Events</span><span class="o">.</span><span class="n">resizeTabCustomers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">Events</span><span class="o">.</span><span class="n">resizeTabSales</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">Products</span><span class="o">.</span><span class="n">cargaFamilypro</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">Events</span><span class="o">.</span><span class="n">resizeTabAllFact</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+
+
+        <span class="c1"># Menú</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionExit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">messageExit</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">dlg_about</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">messageAbout</span><span class="p">)</span>
+        <span class="c1">##globals.ui.actionSave_Data.triggered.connect(Events.saveBackup)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionImport_Data</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">restoreBackup</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionExport_Data</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">exportXlsCustomers</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionCustomerReport</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">reportCustomers</span><span class="p">)</span>
+
+
+
+        <span class="c1"># Validaciones</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_dni</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">checkDni</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_surname</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">Customers</span><span class="o">.</span><span class="n">capitalizar</span><span class="p">(</span><span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_surname</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_surname</span><span class="p">))</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_name</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">Customers</span><span class="o">.</span><span class="n">capitalizar</span><span class="p">(</span><span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_name</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_name</span><span class="p">))</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_email</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">checkMail</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">le_phone</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">checkMobile</span><span class="p">)</span>
+
+        <span class="c1"># Carga municipios al cambiar provincia</span>
+        <span class="n">Events</span><span class="o">.</span><span class="n">loadProv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cb_province</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">loadMunicli</span><span class="p">)</span>
+
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkb_hystorical</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">Historicocli</span><span class="p">)</span>
+
+        <span class="c1"># Botones</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">table_productos</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Products</span><span class="o">.</span><span class="n">selectProduct</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_save_product</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Products</span><span class="o">.</span><span class="n">newProduct</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_modify_product</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Products</span><span class="o">.</span><span class="n">modifyPro</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_del_product</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Products</span><span class="o">.</span><span class="n">delProducto</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_clear_product</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Products</span><span class="o">.</span><span class="n">cleanProd</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">table_customer</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">selectCustomer</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_calendar</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">openCalendar</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_save_cust</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">saveCli</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_del_cust</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">delCliente</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_modify_cust</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">modifCli</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_clear</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">cleanCli</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_search</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Customers</span><span class="o">.</span><span class="n">searchCli</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lb_dni_cliente</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Invoice</span><span class="o">.</span><span class="n">setInvoice</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_clean_fact</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Invoice</span><span class="o">.</span><span class="n">cleanInvoice</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_save_fact</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Invoice</span><span class="o">.</span><span class="n">saveInvoice</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">table_all_fact</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Invoice</span><span class="o">.</span><span class="n">selectInvoice</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lb_dni_cliente</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="n">Invoice</span><span class="o">.</span><span class="n">setInvoice</span><span class="p">(</span><span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lb_dni_cliente</span><span class="p">))</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">table_sales</span><span class="o">.</span><span class="n">itemChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invoice</span><span class="o">.</span><span class="n">cellChangedSales</span><span class="p">)</span>
+        <span class="nb">globals</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lb_dni_cliente</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;00000000T&quot;</span><span class="p">)</span>
+        <span class="n">Events</span><span class="o">.</span><span class="n">loadStatusBar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">Main</span><span class="p">()</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de EstevezCounagoDAM - 0.0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Código de módulo</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">main</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Desteveco.
+      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    </div>
+  </body>
+</html>

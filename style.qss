@@ -1,0 +1,133 @@
+/* === Colores base ===
+   Verde pastel suave: #A8D5BA
+   Verde acento: #7FC8A9
+   Blanco cálido: #F7F9F7
+   Gris suave: #E5EAE5
+   Texto gris oscuro: #2E3D2C
+*/
+
+QMainWindow {
+    background-color: #F7F9F7;
+}
+
+QWidget {
+    background-color: #F7F9F7;
+    color: #2E3D2C;
+    font-family: "Segoe UI", "Arial";
+    font-size: 10pt;
+}
+
+/* === Labels === */
+QLabel {
+    color: #2E3D2C;
+}
+
+/* === Campos de texto y edición === */
+QLineEdit, QComboBox, QSpinBox, QDateEdit, QTextEdit {
+    background-color: #FFFFFF;
+    border: 1px solid #A8D5BA;
+    border-radius: 0px;        /* Cuadrado */
+    padding: 4px;
+    min-height: 22px;
+}
+
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDateEdit:focus, QTextEdit:focus {
+    border: 1px solid #7FC8A9;
+    background-color: #F0FFF4;
+}
+
+/* === QTabWidget === */
+QTabWidget::pane {
+    border: 1px solid #A8D5BA;
+    background-color: #F7F9F7;
+    border-radius: 0px;
+}
+
+QTabBar::tab {
+    background: #E5EAE5;
+    color: #2E3D2C;
+    border: 1px solid #A8D5BA;
+    border-radius: 0px;
+    padding: 6px 10px;
+    margin: 1px;
+}
+
+QTabBar::tab:selected {
+    background: #A8D5BA;
+    font-weight: bold;
+}
+
+/* === Botones === */
+QPushButton {
+    background-color: #A8D5BA;
+    border: 0px solid #7FC8A9;
+    border-radius: 0px;         /* Cuadrado */
+    color: #2E3D2C;
+    padding-top: 1px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+
+#btn_save_cust, #btn_modify_cust, #btn_del_cust, #btn_clear{
+    font-weight: bold;
+    background-color: #A8D5BA;
+    border: 1px solid #7FC8A9;
+}
+
+QPushButton:hover {
+    background-color: #7FC8A9;
+    color: white;
+}
+
+QPushButton:pressed {
+    background-color: #6BB38E;
+}
+
+/* === Menú === */
+QMenuBar {
+    background-color: #A8D5BA;
+    color: #2E3D2C;
+}
+
+QMenuBar::item:selected {
+    background: #7FC8A9;
+    color: white;
+}
+
+/* === Tablas === */
+QTableWidget {
+    background-color: #FFFFFF;
+    gridline-color: #A8D5BA;
+    selection-background-color: #A8D5BA;
+    selection-color: #2E3D2C;
+}
+
+QHeaderView::section {
+    background-color: #A8D5BA;
+    color: #2E3D2C;
+    padding: 4px;
+    border: 2px solid #7FC8A9;
+    border-radius: 0px;
+}
+
+/* === CheckBox y RadioButton === */
+QRadioButton, QCheckBox {
+    spacing: 6px;
+    color: #2E3D2C;
+}
+
+QRadioButton::indicator:checked, QCheckBox::indicator:checked {
+    background-color: #7FC8A9;
+}
+
+/* === Título principal === */
+#lbl_list_cust {
+    font-size: 18pt;        /* tamaño grande */
+    font-weight: bold;      /* negrita */
+    color: #2E3D2C;         /* gris oscuro legible */
+    background-color: transparent;
+    text-align: center;     /* centra el texto dentro del QLabel */
+    padding: 8px;
+    border-bottom: 2px solid #A8D5BA; /* línea decorativa opcional debajo */
+}

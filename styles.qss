@@ -1,0 +1,4 @@
+/* --- MAIN WINDOW --- */
+QMainWindow{
+    background-color: #000000;
+}

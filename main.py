@@ -1,47 +1,62 @@
-import sys
+from PyQt6.QtWidgets import QTableWidget, QWidget
 
-import customers
-import globals
 import events
-from dlgCalendar import Ui_dlgCalendar
-from window import *
-from events import *
-from customers import *
+import globals
+import styles
 from venAux import *
-from conexion import *
-
-
-
+from customers import *
+from events import *
+from window import *
+from connection import *
+from styles import *
+import sys
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
         globals.ui = Ui_MainWindow()
         globals.ui.setupUi(self)
+        self.setStyleSheet(styles.load_stylesheet())
+
+        #Instancias
         globals.vencal = Calendar()
+        globals.about = About()
 
-        Conexion.db_conexion(self)
-        Customers.loadTablecli()
-#tableCustomerlist_2
-        Events.loadProv(self)
-        globals.ui.cmbProvcli_2.currentIndexChanged.connect(events.Events.loadMunicli)
-        #FUNCIONES EN EL MENU BAR
+        #Conexión base de datos
+        Connection.db_conexion()
+        Customers.loadTable(self)
+        Events.resizeTabCustomers(self)
+
+        # Menú
         globals.ui.actionExit.triggered.connect(Events.messageExit)
+        globals.ui.dlg_about.triggered.connect(Events.messageAbout)
 
-        #FUNCIONES EN LINEEDIT
-        globals.ui.txtDnicli_2.editingFinished.connect(Customers.checkDni)
+        # Funciones de cuestionario
+        globals.ui.le_dni.editingFinished.connect(Customers.checkDni)
+        globals.ui.le_surname.editingFinished.connect(
+            lambda: Customers.capitalize(globals.ui.le_surname.text(), globals.ui.le_surname))
+        globals.ui.le_name.editingFinished.connect(
+            lambda: Customers.capitalize(globals.ui.le_name.text(), globals.ui.le_name))
+        globals.ui.le_email.editingFinished.connect(Customers.checkMail)
+        globals.ui.le_phone.editingFinished.connect(Customers.checkMobile)
 
-        #FUNCIONES OF BUTTONS
-        globals.ui.btnFechaltacli_2.clicked.connect(Events.openCalendar)
-        globals.ui.txtApelcli_2.editingFinished.connect(lambda: Customers.capitalizar(globals.ui.txtApelcli_2.text(), globals.ui.txtApelcli_2))
-        globals.ui.lblNomecli_5.editingFinished.connect(lambda: Customers.capitalizar(globals.ui.lblNomecli_5.text(), globals.ui.lblNomecli_5))
-        globals.ui.txtEmailcli_2.editingFinished.connect(lambda: Customers.checkMail(globals.ui.txtEmailcli_2.text()))
-        globals.ui.lblNomecli_6.editingFinished.connect(lambda: Customers.checkMobile(globals.ui.lblNomecli_6.text()))
+        # Funciones de tabla
+        globals.ui.table_customer.clicked.connect(Customers.selectCustomer)
 
+        # Botones
+        globals.ui.btn_calendar.clicked.connect(Events.openCalendar)
+        globals.ui.btn_clean.clicked.connect(Events.clearEntries)
+        globals.ui.btn_save_cust.clicked.connect(Customers.saveCustomer)
+        globals.ui.btn_del_cust.clicked.connect(Customers.deleteCustomer)
+        globals.ui.btn_modify_cust.clicked.connect(Customers.modifyCustomer)
 
+        # Funciones de combobox
+        globals.ui.cb_province.currentIndexChanged.connect(Events.loadMunicli)
+        Events.loadProv(self)
 
 if __name__ == '__main__':
-     app = QtWidgets.QApplication(sys.argv)
-     window = Main()
-     window.showMaximized()
-     sys.exit(app.exec())
+    app = QtWidgets.QApplication(sys.argv)
+    window = Main()
+    window.setWindowIcon(QtGui.QIcon("./img/logo.jpg"))
+    window.showMaximized()
+    sys.exit(app.exec())
